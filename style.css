@@ -1,0 +1,99 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+#wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+.carousel .selects {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+.carousel .selects > input {
+  display: inline-block;
+  height: 26px;
+  width: 100px;
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  background-color: #e7e7e7;
+  color: black;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.3s; /* Safari */
+  transition-duration: 0.3s;
+}
+.carousel .selects .active {
+  background-color: #555555;
+  color: white;
+}
+.carousel .view {
+  overflow: hidden;
+}
+.carousel .view .images {
+  position: relative;
+  width: 800px;
+  height: 400px;
+  transition: all 0.3s;
+}
+.carousel .view .images > a {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.carousel .view .images > a:first-child {
+  z-index: 10;
+}
+.carousel .view .images > a > img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: all 0.3s;
+}
+.carousel .actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+.carousel .actions > span {
+  cursor: pointer;
+  user-select: none;
+  background-color: #e7e7e7;
+  color: black;
+  width: 100px;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 26px;
+  text-align: center;
+  transition: all 0.3s;
+}
+.carousel .actions > span:hover {
+  background-color: #555555;
+  color: white;
+}
+.actions .dots {
+  user-select: none;
+}
+.actions .dots > span {
+  display: inline-block;
+  height: 4px;
+  width: 8px;
+  border-radius: 2px;
+  background-color: #e7e7e7;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.actions .dots .active {
+  width: 12px;
+  background-color: #555555;
+}
