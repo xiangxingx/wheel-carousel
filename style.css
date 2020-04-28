@@ -10,13 +10,13 @@
   height: 100vh;
   width: 100vw;
 }
-.carousel .selects {
+#selects {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 10px 0;
 }
-.carousel .selects > input {
+#selects > input {
   display: inline-block;
   height: 26px;
   width: 100px;
@@ -31,7 +31,7 @@
   -webkit-transition-duration: 0.3s; /* Safari */
   transition-duration: 0.3s;
 }
-.carousel .selects .active {
+#selects .active {
   background-color: #555555;
   color: white;
 }

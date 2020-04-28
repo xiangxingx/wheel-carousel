@@ -89,52 +89,7 @@ const Animation = {
       toAnimation()
     }
   },
-
   slide: function () {
-    return function (fromNode, toNode, callBack) {
-      let nodeWidth = parseInt(getComputedStyle(fromNode).width)
-      let offsetX = nodeWidth
-      let offSetFrom = 0
-      let offSetTo = 0
-      fromNode.style.zIndex = 10
-      toNode.style.zIndex = 10
-      toNode.style.left = nodeWidth + 'px'
-
-      let nodes = Array.from(fromNode.parentNode.querySelectorAll('a'))
-      let fromIndex = nodes.indexOf(fromNode) + 1
-      let toIndex = nodes.indexOf(toNode) + 1
-
-      function fromAnimation() {
-        if (offSetFrom < offsetX) {
-          offSetFrom += 25
-          if (fromIndex < toIndex) {
-            fromNode.style.left = (-offSetFrom) + 'px'
-          } else {
-            fromNode.style.left = offSetFrom + 'px'
-          }
-          requestAnimationFrame(fromAnimation)
-        }
-      }
-      function toAnimation() {
-        if (offSetTo < offsetX) {
-          offSetTo += 25
-          if (fromIndex < toIndex) {
-            toNode.style.left = (nodeWidth - offSetTo) + 'px'
-          } else {
-            toNode.style.left = -(nodeWidth - offSetTo) + 'px'
-          }
-          requestAnimationFrame(toAnimation)
-        } else {
-          callBack()
-          fromNode.style.left = 0
-          toNode.style.left = 0
-        }
-      }
-      fromAnimation()
-      toAnimation()
-    }
-  },
-  seamlessSlide: function () {
     return function (fromNode, toNode, callBack) {
       let nodeWidth = parseInt(getComputedStyle(fromNode).width)
       let offsetX = nodeWidth
@@ -204,9 +159,11 @@ const Animation = {
 
 const rootNode = document.querySelector('.carousel')
 const carousel = new Carousel(rootNode, Animation.fade())
-$('.selects > input').on('click', (ev) => {
+
+let selects = document.querySelector('#selects')
+selects.addEventListener('click', (ev) => {
   carousel.animation = Animation[ev.target.name]()
-  Array.from($('.selects').children()).forEach((select) => {
+  Array.from(selects.children).forEach((select) => {
     select.classList.remove('active')
   })
   ev.target.classList.add('active')
