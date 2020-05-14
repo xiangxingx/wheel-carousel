@@ -2,7 +2,7 @@ class Carousel {
   constructor(root, animation, speed) {
     this.root = root
     this.animation = animation
-    this.speed = speed - 0
+    this.speed = speed - 0 || 1500
     this.imgs = Array.from(this.root.querySelectorAll('.carousel .images > a'))
     this.dots = Array.from(this.root.querySelectorAll('.actions .dots > span'))
     this.dotContainer = this.root.querySelector('.dots')
