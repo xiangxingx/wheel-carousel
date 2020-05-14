@@ -1,7 +1,8 @@
 class Carousel {
-  constructor(root, animation) {
+  constructor(root, animation, speed) {
     this.root = root
     this.animation = animation
+    this.speed = speed - 0
     this.imgs = Array.from(this.root.querySelectorAll('.carousel .images > a'))
     this.dots = Array.from(this.root.querySelectorAll('.actions .dots > span'))
     this.dotContainer = this.root.querySelector('.dots')
@@ -9,15 +10,17 @@ class Carousel {
     this.next = this.root.querySelector('.next')
 
     this.band()
+    this.autoSlide()
   }
   get index() {
     return this.dots.indexOf(this.root.querySelector('.dots .active'))
   }
-  get preIndex() {
-    return (this.index - 1 + this.imgs.length) % this.imgs.length
-  }
   get nextIndex() {
     return (this.index + 1) % this.imgs.length
+  }
+
+  get preIndex() {
+    return (this.index - 1 + this.imgs.length) % this.imgs.length
   }
 
   band() {
@@ -38,12 +41,39 @@ class Carousel {
     })
   }
 
+  autoSlide() {
+    let that = this
+    let timer
+    let crtIndex = that.index
+    let nxIndex = that.nextIndex
+    that.next.parentNode.addEventListener('click', () => { /* 防抖函数 */
+      clearInterval(timer)
+      crtIndex = that.index
+      nxIndex = that.nextIndex
+      timer = setInterval(fn, that.speed);
+    })
+
+    timer = setInterval(fn, that.speed); /* 定时轮播 */
+    function fn() {
+      console.log("timer:" + timer)
+      if (crtIndex > that.imgs.length - 1) {
+        crtIndex = 0
+      } else if (nxIndex > that.imgs.length - 1) {
+        nxIndex = 0
+      }
+      /* console.log(crtIndex, nxIndex) */
+      that.setView(crtIndex, nxIndex)
+      that.setDot(nxIndex)
+      crtIndex += 1
+      nxIndex += 1
+    }
+  }
+
   setView(index, nextIndex) {
     let that = this
     function setImage() {
       that.imgs.forEach(img => { img.style.zIndex = 0 })
       that.imgs[nextIndex].style.zIndex = 10
-      console.log('finish')
     }
     if (typeof this.animation === 'function') {
       this.animation(this.imgs[index], this.imgs[nextIndex], setImage)
@@ -58,6 +88,7 @@ class Carousel {
   }
 }
 
+/* 动画函数 */
 const Animation = {
   fade: function () {
     return function (fromNode, toNode, callBack) {
@@ -156,10 +187,6 @@ const Animation = {
     }
   }
 }
-
-const rootNode = document.querySelector('.carousel')
-const carousel = new Carousel(rootNode, Animation.fade())
-
 let selects = document.querySelector('#selects')
 selects.addEventListener('click', (ev) => {
   carousel.animation = Animation[ev.target.name]()
@@ -169,4 +196,8 @@ selects.addEventListener('click', (ev) => {
   ev.target.classList.add('active')
 })
 
+/* 指定容器 */
+const rootNode = document.querySelector('.carousel')
 
+/* 接收三个参数：容器节点、动画函数、轮播速度(毫秒数)*/
+const carousel = new Carousel(rootNode, Animation.fade(), 1500)

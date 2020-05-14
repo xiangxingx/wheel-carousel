@@ -76,9 +76,11 @@
   text-align: center;
   transition: all 0.3s;
 }
-.carousel .actions > span:hover {
-  background-color: #555555;
-  color: white;
+@media (hover: hover) and (pointer: fine) {
+  .carousel .actions > span:hover {
+    background-color: #555555;
+    color: white;
+  }
 }
 .actions .dots {
   user-select: none;
@@ -86,10 +88,10 @@
 .actions .dots > span {
   display: inline-block;
   height: 4px;
-  width: 8px;
+  width: 10px;
   border-radius: 2px;
   background-color: #e7e7e7;
-  margin: 0 4px;
+  margin: 0 6px;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -97,3 +99,43 @@
   width: 12px;
   background-color: #555555;
 }
+@media (max-width: 970px) {
+  .carousel .view .images {
+    width: 480px;
+    height: 240px;
+  }
+  #selects > input {
+    height: 26px;
+    width: 68px;
+  }
+  .carousel .actions > span {
+    width: 68px;
+  }
+  .carousel .actions > span:hover {
+    background-color: #e7e7e7;
+    color: black;
+  }
+  .carousel .actions > span:focus {
+    background-color: #555555;
+    color: white;
+  }
+}
+
+@media (max-width: 500px) {
+  .carousel .view .images {
+    width: 320px;
+    height: 160px;
+  }
+  #selects > input {
+    height: 26px;
+    width: 68px;
+  }
+  .carousel .actions > span {
+    width: 68px;
+  }
+  .carousel .actions > span:focus {
+    background-color: #555555;
+    color: white;
+  }
+}
+
